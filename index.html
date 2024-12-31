@@ -186,13 +186,15 @@
     <div id="categories" class="dropdown-menu columns-dropdown"></div>
   </div>
 
-  <!-- Riga con tutti gli altri pulsanti, nell'ordine richiesto -->
+  <!-- Riga con tutti gli altri pulsanti, ora con sole icone -->
   <div class="d-flex flex-wrap mb-4 justify-content-center align-items-center">
     <!-- Cerca prompt -->
     <div class="input-group mr-2" style="width:250px;">
       <input type="text" id="searchInput" class="form-control" placeholder="Cerca prompt">
       <div class="input-group-append">
-        <button id="searchBtn" class="btn btn-success">Cerca prompt</button>
+        <button id="searchBtn" class="btn btn-success">
+          <i class="fas fa-search"></i>
+        </button>
       </div>
     </div>
 
@@ -204,29 +206,30 @@
       </div>
     </div>
 
-    <!-- Annulla -->
+    <!-- Annulla (solo icona) -->
     <button id="undoBtn" class="btn btn-warning mr-2">
-      <i class="fas fa-undo"></i> Annulla
+      <i class="fas fa-undo"></i>
     </button>
-    <!-- Ripristina -->
+
+    <!-- Ripristina (solo icona) -->
     <button id="redoBtn" class="btn btn-warning mr-2">
-      <i class="fas fa-redo"></i> Ripristina
+      <i class="fas fa-redo"></i>
     </button>
 
-    <!-- Back up dati -->
+    <!-- Back up dati (solo icona) -->
     <button id="backupBtn" class="btn btn-primary mr-2">
-      <i class="fas fa-download"></i> Back up dati
+      <i class="fas fa-download"></i>
     </button>
 
-    <!-- Importa backup -->
+    <!-- Importa backup (solo icona) -->
     <input type="file" id="importFile" class="d-none" accept=".json">
     <button id="importBtn" class="btn btn-import mr-2">
-      <i class="fas fa-upload"></i> Importa backup
+      <i class="fas fa-upload"></i>
     </button>
 
-    <!-- Cancella tutto -->
+    <!-- Cancella tutto (solo icona) -->
     <button id="clearAllBtn" class="btn btn-danger">
-      <i class="fas fa-trash"></i> Cancella tutto
+      <i class="fas fa-trash"></i>
     </button>
   </div>
 
@@ -616,12 +619,21 @@
       box.appendChild(promptContainer);
       box.appendChild(selectedPrompt);
 
-      btnEdit.onclick = e => { e.stopPropagation(); if(box.selectedPrompt) openEditModal(category.id, box.selectedPrompt.id); };
-      btnCopy.onclick = e => { e.stopPropagation(); if(box.selectedPrompt) copyPromptText(box.selectedPrompt); };
-      btnShare.onclick= e => { e.stopPropagation(); if(box.selectedPrompt) sharePrompt(box.selectedPrompt); };
+      btnEdit.onclick = e => { 
+        e.stopPropagation(); 
+        if(box.selectedPrompt) openEditModal(category.id, box.selectedPrompt.id); 
+      };
+      btnCopy.onclick = e => { 
+        e.stopPropagation(); 
+        if(box.selectedPrompt) copyPromptText(box.selectedPrompt); 
+      };
+      btnShare.onclick= e => { 
+        e.stopPropagation(); 
+        if(box.selectedPrompt) sharePrompt(box.selectedPrompt); 
+      };
       btnDelete.onclick= e=> {
         e.stopPropagation();
-        if(box.selectedPrompt&&confirm(translations[currentLanguage]['deletePromptConfirmation'])){
+        if(box.selectedPrompt && confirm(translations[currentLanguage]['deletePromptConfirmation'])){
           deletePrompt(category.id, box.selectedPrompt.id);
         }
       };
@@ -649,8 +661,14 @@
       return b;
     }
     function toggleButtons(btn1, btn2) {
-      if(btn1.style.display==='none'){ btn1.style.display='inline'; btn2.style.display='none'; }
-      else { btn1.style.display='none'; btn2.style.display='inline'; }
+      if(btn1.style.display==='none'){ 
+        btn1.style.display='inline'; 
+        btn2.style.display='none'; 
+      }
+      else { 
+        btn1.style.display='none'; 
+        btn2.style.display='inline'; 
+      }
     }
 
     function displaySelectedPrompt(btn, prompt, categoryId) {
@@ -721,10 +739,21 @@
           b.style.display= show?'block':'none';
           if(show) {
             allBoxes.forEach(other=>{
-              if(other!==b){ other.style.display='none'; other.selectedPrompt=null; if(other.actionsDiv)other.actionsDiv.style.display='none'; }
+              if(other!==b){
+                other.style.display='none'; 
+                other.selectedPrompt=null; 
+                if(other.actionsDiv) other.actionsDiv.style.display='none'; 
+              }
             });
-          } else { b.selectedPrompt=null; if(b.actionsDiv)b.actionsDiv.style.display='none'; }
-        } else { b.style.display='none'; b.selectedPrompt=null; if(b.actionsDiv)b.actionsDiv.style.display='none'; }
+          } else { 
+            b.selectedPrompt=null; 
+            if(b.actionsDiv) b.actionsDiv.style.display='none'; 
+          }
+        } else { 
+          b.style.display='none'; 
+          b.selectedPrompt=null; 
+          if(b.actionsDiv) b.actionsDiv.style.display='none'; 
+        }
       });
     }
 
@@ -754,7 +783,8 @@
           const pTitles = box.querySelectorAll('.prompt-titles-container .btn');
           pTitles.forEach(btn => { if(btn.textContent===title) btn.click(); });
           $('#newPromptModal').modal('hide');
-          $('#promptTitle').val(''); $('#promptPurpose').val('');
+          $('#promptTitle').val(''); 
+          $('#promptPurpose').val('');
           quillNewPrompt.setContents([]);
           resetTags('newPromptTags');
         } else alert(translations[currentLanguage]['promptTitlePurposeRequired']);
@@ -765,10 +795,17 @@
       const c = categories.find(cc=>cc.id===catId);
       if(!c) return;
       const idx = c.prompts.findIndex(p=>p.id===promptId);
-      if(idx!==-1){ pushToHistory(); c.prompts.splice(idx,1); sortAndSave(); renderCategories(); }
+      if(idx!==-1){ 
+        pushToHistory(); 
+        c.prompts.splice(idx,1); 
+        sortAndSave(); 
+        renderCategories(); 
+      }
     }
 
-    function clearSearchResults(){ document.getElementById('prompts-display-container').innerHTML=''; }
+    function clearSearchResults(){ 
+      document.getElementById('prompts-display-container').innerHTML=''; 
+    }
 
     function searchPrompts() {
       const q = document.getElementById('searchInput').value.toLowerCase().trim();
@@ -802,27 +839,40 @@
       const name = newCategoryInput.value.trim();
       if(name){
         pushToHistory();
-        categories.push({ id:generateUniqueId(), name:sanitizeHTML(name), prompts:[] });
-        sortAndSave(); renderCategories();
+        categories.push({ 
+          id:generateUniqueId(), 
+          name:sanitizeHTML(name), 
+          prompts:[] 
+        });
+        sortAndSave(); 
+        renderCategories();
         toggleCategoryBox(categories[categories.length-1].id);
         newCategoryInput.value='';
       }
     };
+
     document.getElementById('searchBtn').onclick=searchPrompts;
-    document.getElementById('searchInput').addEventListener('keydown', e=>{ if(e.key==='Enter')searchPrompts(); });
+    document.getElementById('searchInput').addEventListener('keydown', e=>{
+      if(e.key==='Enter') searchPrompts();
+    });
 
     document.getElementById('backupBtn').onclick=()=>{
       const data = JSON.stringify(categories);
       const blob = new Blob([data],{type:'application/json'});
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
-      a.href=url; a.download='backup.json';
+      a.href=url; 
+      a.download='backup.json';
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
     };
-    document.getElementById('importBtn').onclick=()=>{ importFile.click(); };
+
+    document.getElementById('importBtn').onclick=()=>{
+      importFile.click();
+    };
+
     document.getElementById('importFile').addEventListener('change', e=>{
       const file = e.target.files[0];
       if(file){
@@ -834,10 +884,15 @@
               cat.id = cat.id||generateUniqueId();
               cat.prompts.forEach(p=>{ p.id=p.id||generateUniqueId(); });
             });
-            categories.length=0; categories.push(...data);
-            pushToHistory(); sortAndSave(); renderCategories();
+            categories.length=0; 
+            categories.push(...data);
+            pushToHistory(); 
+            sortAndSave(); 
+            renderCategories();
             alert(translations[currentLanguage]['backupImported']);
-          } catch(err){ alert(translations[currentLanguage]['backupImportError']+err.message); }
+          } catch(err){ 
+            alert(translations[currentLanguage]['backupImportError']+err.message); 
+          }
         };
         reader.readAsText(file);
       }
@@ -853,7 +908,8 @@
     };
 
     function openEditModal(catId, pId){
-      currentEdit.categoryId=catId; currentEdit.promptId=pId;
+      currentEdit.categoryId=catId; 
+      currentEdit.promptId=pId;
       const c=categories.find(cc=>cc.id===catId);
       const p=c.prompts.find(pp=>pp.id===pId);
       $('#editPromptTitle').val(p.title);
@@ -877,7 +933,8 @@
         p.purpose=sanitizeHTML(purpose);
         p.description=desc;
         p.tags=tags.map(t=>sanitizeHTML(t));
-        sortAndSave(); renderCategories();
+        sortAndSave(); 
+        renderCategories();
         toggleCategoryBox(c.id);
         const box=document.querySelector(`.category-box[data-category-id="${c.id}"]`);
         const allBtns=box.querySelectorAll('.prompt-titles-container .btn');
@@ -898,10 +955,13 @@
         if(t && !tags.includes(t)){
           tags.push(t);
           const sp=document.createElement('span');
-          sp.className='tag'; sp.textContent=t;
+          sp.className='tag'; 
+          sp.textContent=t;
           const rm=document.createElement('i');
-          rm.className='fas fa-times'; rm.onclick=()=>{
-            tags.splice(tags.indexOf(t),1); container.removeChild(sp);
+          rm.className='fas fa-times'; 
+          rm.onclick=()=>{
+            tags.splice(tags.indexOf(t),1); 
+            container.removeChild(sp);
           };
           sp.appendChild(rm);
           container.insertBefore(sp, input);
@@ -909,19 +969,27 @@
         }
       }
       input.addEventListener('keydown', e=>{
-        if(e.key==='Enter'||e.key===','){ e.preventDefault(); addTag(input.value.trim()); }
+        if(e.key==='Enter'||e.key===','){
+          e.preventDefault(); 
+          addTag(input.value.trim()); 
+        }
       });
       initial.forEach(addTag);
     }
     function getTags(id) {
       return Array.from(document.getElementById(id).querySelectorAll('.tag')).map(t=>t.childNodes[0].nodeValue.trim());
     }
-    function resetTags(id){ document.getElementById(id).innerHTML=''; }
+    function resetTags(id){ 
+      document.getElementById(id).innerHTML=''; 
+    }
 
     function sharePrompt(prompt) {
       if(navigator.share){
-        navigator.share({ title: prompt.title, text: prompt.description })
-          .catch(err=>console.error(translations[currentLanguage]['shareError'], err));
+        navigator.share({ 
+          title: prompt.title, 
+          text: prompt.description 
+        })
+        .catch(err=>console.error(translations[currentLanguage]['shareError'], err));
       } else {
         const temp=document.createElement('div');
         temp.innerHTML=prompt.description;
@@ -953,8 +1021,13 @@
       h2.textContent=translations[currentLanguage]['favoritesHeading'];
       display.appendChild(h2);
 
-      const favs=[]; let found=false;
-      categories.forEach(c=>{ c.prompts.forEach(p=>{ if(p.favorite) favs.push({p, catId:c.id}); }); });
+      const favs=[]; 
+      let found=false;
+      categories.forEach(c=>{ 
+        c.prompts.forEach(p=>{ 
+          if(p.favorite) favs.push({p, catId:c.id}); 
+        }); 
+      });
       favs.sort((a,b)=>a.p.title.localeCompare(b.p.title, currentLanguage));
       if(favs.length>0) found=true;
 
@@ -994,21 +1067,29 @@
       container.appendChild(actions);
 
       eBtn.onclick=e=>{
-        e.stopPropagation(); openEditModal(catId,prompt.id);
+        e.stopPropagation(); 
+        openEditModal(catId,prompt.id);
       };
       cBtn.onclick=e=>{
-        e.stopPropagation(); copyPromptText(prompt);
+        e.stopPropagation(); 
+        copyPromptText(prompt);
       };
       sBtn.onclick=e=>{
-        e.stopPropagation(); sharePrompt(prompt);
+        e.stopPropagation(); 
+        sharePrompt(prompt);
       };
       fBtn.onclick=e=>{
-        e.stopPropagation(); const d=container.querySelector('.display-prompt-text'); increaseFontSize(d);
+        e.stopPropagation(); 
+        const d=container.querySelector('.display-prompt-text'); 
+        increaseFontSize(d);
       };
       rmBtn.onclick=e=>{
         e.stopPropagation();
         if(confirm(translations[currentLanguage]['removeFromFavoritesConfirmation'])){
-          pushToHistory(); prompt.favorite=false; sortAndSave(); renderFavorites();
+          pushToHistory(); 
+          prompt.favorite=false; 
+          sortAndSave(); 
+          renderFavorites();
         }
       };
     }
@@ -1021,16 +1102,20 @@
       if(historyStack.length>0){
         futureStack.push(JSON.stringify(categories));
         const prev=historyStack.pop();
-        categories.length=0; categories.push(...JSON.parse(prev));
-        saveToLocalStorage(); renderCategories();
+        categories.length=0; 
+        categories.push(...JSON.parse(prev));
+        saveToLocalStorage(); 
+        renderCategories();
       }
     }
     function redoAction(){
       if(futureStack.length>0){
         historyStack.push(JSON.stringify(categories));
         const next=futureStack.pop();
-        categories.length=0; categories.push(...JSON.parse(next));
-        saveToLocalStorage(); renderCategories();
+        categories.length=0; 
+        categories.push(...JSON.parse(next));
+        saveToLocalStorage(); 
+        renderCategories();
       }
     }
     document.getElementById('undoBtn').onclick=undoAction;
