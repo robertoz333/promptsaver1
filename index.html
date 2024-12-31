@@ -164,6 +164,8 @@
 </head>
 <body>
 <div class="container">
+
+  <!-- Selettore lingua e tema in alto a destra -->
   <div class="d-flex justify-content-end mb-3">
     <select id="languageSelect" class="custom-select w-auto mr-2">
       <option value="it">Italiano</option>
@@ -171,53 +173,70 @@
     </select>
     <button id="themeToggleBtn" class="btn btn-secondary" title=""><i class="fas fa-moon"></i></button>
   </div>
+
+  <!-- Titolo centrale -->
   <h1 class="text-center" data-translate="promptSaver">Prompt Saver</h1>
-  <div class="search-container mb-4">
-    <div class="input-group">
-      <input type="text" id="searchInput" class="form-control" data-placeholder="searchPromptCategoryTag">
-      <div class="input-group-append">
-        <button id="searchBtn" class="btn btn-success"><i class="fas fa-search"></i></button>
-      </div>
-    </div>
+
+  <!-- Pulsante Categorie sotto il titolo -->
+  <div class="dropdown mb-3 text-center">
+    <button class="btn btn-secondary dropdown-toggle" type="button"
+            id="categoryDropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Categorie
+    </button>
+    <div id="categories" class="dropdown-menu columns-dropdown"></div>
   </div>
 
-  <div class="top-section mb-4 w-100">
-    <div class="input-group mb-3">
-      <input type="text" id="newCategoryInput" class="form-control" data-placeholder="newCategory">
+  <!-- Riga con tutti gli altri pulsanti, nell'ordine richiesto -->
+  <div class="d-flex flex-wrap mb-4 justify-content-center align-items-center">
+    <!-- Cerca prompt -->
+    <div class="input-group mr-2" style="width:250px;">
+      <input type="text" id="searchInput" class="form-control" placeholder="Cerca prompt">
+      <div class="input-group-append">
+        <button id="searchBtn" class="btn btn-success">Cerca prompt</button>
+      </div>
+    </div>
+
+    <!-- Nuova categoria -->
+    <div class="input-group mr-2" style="width:250px;">
+      <input type="text" id="newCategoryInput" class="form-control" placeholder="Nuova categoria">
       <div class="input-group-append">
         <button id="addCategoryBtn" class="btn btn-success"><i class="fas fa-plus"></i></button>
       </div>
     </div>
-    <div class="d-flex align-items-center mb-3">
-      <button id="undoBtn" class="btn btn-warning mr-2"><i class="fas fa-undo"></i> <span data-translate="undo">Annulla</span></button>
-      <button id="redoBtn" class="btn btn-warning mr-2"><i class="fas fa-redo"></i> <span data-translate="redo">Ripristina</span></button>
-    </div>
-    <div class="dropdown mb-3">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="categoryDropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Categorie
-      </button>
-      <div id="categories" class="dropdown-menu columns-dropdown"></div>
-    </div>
+
+    <!-- Annulla -->
+    <button id="undoBtn" class="btn btn-warning mr-2">
+      <i class="fas fa-undo"></i> Annulla
+    </button>
+    <!-- Ripristina -->
+    <button id="redoBtn" class="btn btn-warning mr-2">
+      <i class="fas fa-redo"></i> Ripristina
+    </button>
+
+    <!-- Back up dati -->
+    <button id="backupBtn" class="btn btn-primary mr-2">
+      <i class="fas fa-download"></i> Back up dati
+    </button>
+
+    <!-- Importa backup -->
+    <input type="file" id="importFile" class="d-none" accept=".json">
+    <button id="importBtn" class="btn btn-import mr-2">
+      <i class="fas fa-upload"></i> Importa backup
+    </button>
+
+    <!-- Cancella tutto -->
+    <button id="clearAllBtn" class="btn btn-danger">
+      <i class="fas fa-trash"></i> Cancella tutto
+    </button>
   </div>
 
-  <div class="row mb-4">
-    <div class="col-md-12 d-flex align-items-center">
-      <button id="backupBtn" class="btn btn-primary mr-2">
-        <i class="fas fa-download"></i> <span data-translate="backupData">Backup Dati</span>
-      </button>
-      <input type="file" id="importFile" class="d-none" accept=".json">
-      <button id="importBtn" class="btn btn-import mr-2">
-        <i class="fas fa-upload"></i> <span data-translate="importBackup">Importa Backup</span>
-      </button>
-      <button id="clearAllBtn" class="btn btn-danger ml-2">
-        <i class="fas fa-trash"></i> Cancella tutto
-      </button>
-    </div>
-  </div>
-
+  <!-- Contenitore dei risultati di ricerca o dei preferiti -->
   <div id="prompts-display-container"></div>
+
+  <!-- Contenitore delle categorie (con i box nascosti/aperti) -->
   <div id="category-boxes-container"></div>
 
+  <!-- MODALE NUOVO PROMPT -->
   <div class="modal fade" id="newPromptModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
       <div class="modal-content bg-dark text-white">
@@ -254,6 +273,7 @@
     </div>
   </div>
 
+  <!-- MODALE EDIT PROMPT -->
   <div class="modal fade" id="editPromptModal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
       <div class="modal-content bg-dark text-white">
@@ -290,6 +310,7 @@
     </div>
   </div>
 
+  <!-- JAVASCRIPT -->
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -302,6 +323,7 @@
     let historyStack = [];
     let futureStack = [];
 
+    // Traduzioni
     const translations = {
       en: {
         promptSaver: "Prompt Saver",
@@ -775,6 +797,7 @@
       document.querySelectorAll('.category-box').forEach(b=>b.style.display='none');
     }
 
+    // Bottoni
     document.getElementById('addCategoryBtn').onclick = () => {
       const name = newCategoryInput.value.trim();
       if(name){
@@ -1013,6 +1036,7 @@
     document.getElementById('undoBtn').onclick=undoAction;
     document.getElementById('redoBtn').onclick=redoAction;
 
+    // Carica le categorie salvate e inizializza
     loadFromLocalStorage();
     pushToHistory();
     translatePage();
