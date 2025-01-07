@@ -53,18 +53,41 @@
       font-family: Arial, sans-serif;
     }
     .sidebar {
-      position: fixed; top: 0; left: 0; height: 100%;
+      position: fixed;
+      top: 0; left: 0; height: 100%;
       width: var(--sidebar-width);
       background-color: var(--secondary-background-color);
       padding: 20px; overflow-y: auto; transition: all 0.3s;
     }
-    .content { margin-left: var(--sidebar-width); padding: 20px; transition: all 0.3s; }
-    .category-box { background-color: var(--secondary-background-color); margin-top: 20px; padding: 20px; border-radius: 5px; }
-    .prompt-content { background-color: var(--tertiary-background-color); padding: 20px; border-radius: 5px; }
-    .prompt-titles-container { margin-bottom: 20px; }
+    .content {
+      margin-left: var(--sidebar-width);
+      padding: 20px;
+      transition: all 0.3s;
+    }
+    .category-box {
+      background-color: var(--secondary-background-color);
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 5px;
+    }
+    .prompt-content {
+      background-color: var(--tertiary-background-color);
+      padding: 20px;
+      border-radius: 5px;
+    }
+    .prompt-titles-container {
+      margin-bottom: 20px;
+    }
     .btn-custom {
-      color: var(--btn-custom-color); border: none; border-radius: 5px; cursor: pointer;
-      margin-right: 5px; margin-bottom: 5px; display: inline-flex; align-items: center; justify-content: center;
+      color: var(--btn-custom-color);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-right: 5px;
+      margin-bottom: 5px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
     }
     .btn-new       { background-color: var(--btn-new-bg-color); }
     .btn-edit      { background-color: var(--btn-edit-bg-color); }
@@ -94,21 +117,52 @@
     .tag {
       background-color: var(--tag-background-color);
       color: var(--prompt-active-text-color);
-      padding: 5px 10px; border-radius: 15px; margin-right: 5px; margin-bottom: 5px; display: inline-flex; align-items: center;
+      padding: 5px 10px;
+      border-radius: 15px;
+      margin-right: 5px;
+      margin-bottom: 5px;
+      display: inline-flex;
+      align-items: center;
     }
-    .tag i { margin-left: 5px; cursor: pointer; }
+    .tag i {
+      margin-left: 5px;
+      cursor: pointer;
+    }
     .tags-input {
-      border: 1px solid #ccc; border-radius: 5px; padding: 5px; display: flex; flex-wrap: wrap;
-      background-color: var(--input-background-color); color: var(--input-text-color);
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 5px;
+      display: flex;
+      flex-wrap: wrap;
+      background-color: var(--input-background-color);
+      color: var(--input-text-color);
     }
     .tags-input input {
-      border: none; outline: none; background: transparent; flex: 1; min-width: 100px;
+      border: none;
+      outline: none;
+      background: transparent;
+      flex: 1;
+      min-width: 100px;
     }
-    .columns-dropdown { columns: 3; column-gap: 20px; width: 100%; }
-    .columns-dropdown a.dropdown-item { display: block; break-inside: avoid; white-space: nowrap; }
+    .columns-dropdown {
+      columns: 3;
+      column-gap: 20px;
+      width: 100%;
+    }
+    .columns-dropdown a.dropdown-item {
+      display: block;
+      break-inside: avoid;
+      white-space: nowrap;
+    }
     @media (max-width: 768px) {
-      .sidebar { width: 100%; height: auto; position: relative; }
-      .content { margin-left: 0; }
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+      }
+      .content {
+        margin-left: 0;
+      }
     }
     @media (max-width: 576px) {
       .btn-custom { font-size: 14px; }
@@ -271,7 +325,6 @@
   (function(){
     'use strict';
 
-    // 1. Memorizziamo tutti i riferimenti a elementi che useremo di frequente
     const languageSelect = document.getElementById('languageSelect');
     const themeToggleBtn = document.getElementById('themeToggleBtn');
     const searchInput    = document.getElementById('searchInput');
@@ -294,7 +347,6 @@
     let historyStack = [];
     let futureStack = [];
     
-    // 2. Traduzioni (potresti estrarle in un file JSON se diventano troppo grandi)
     const translations = {
       en: {
         promptSaver: "Prompt Saver",
@@ -323,7 +375,9 @@
         addTag: "Add tag...",
         removeFromFavoritesConfirmation: "Remove this prompt from favorites?",
         searchPromptCategoryTag: "Search prompt, category or tag...",
-        noResultsFound: "No results found."
+        noResultsFound: "No results found.",
+        addToFavorites: "Add to Favorites",
+        increaseFont: "Increase Font"
       },
       it: {
         promptSaver: "Prompt Saver",
@@ -352,7 +406,9 @@
         addTag: "Aggiungi tag...",
         removeFromFavoritesConfirmation: "Rimuovere questo prompt dai preferiti?",
         searchPromptCategoryTag: "Cerca prompt, categoria o tag...",
-        noResultsFound: "Nessun risultato trovato."
+        noResultsFound: "Nessun risultato trovato.",
+        addToFavorites: "Aggiungi ai Preferiti",
+        increaseFont: "Aumenta Font"
       }
     };
 
@@ -370,13 +426,11 @@
       ['clean']
     ];
 
-    // 3. Inizializziamo Quill (potresti farlo in lazy load solo se serve)
     const quillNewPrompt  = new Quill('#newPromptTextEditor',  { theme: 'snow', modules: { toolbar: quillToolbarOptions } });
     const quillEditPrompt = new Quill('#editPromptTextEditor', { theme: 'snow', modules: { toolbar: quillToolbarOptions } });
 
     const categories = [];
 
-    // 4. Funzioni di supporto
     function translatePage(){
       document.querySelectorAll('[data-translate]').forEach(el => {
         const key = el.getAttribute('data-translate');
@@ -408,7 +462,6 @@
       futureStack = [];
     }
 
-    // 5. Gestione tema
     function applyTheme(){
       if(currentTheme === 'dark'){
         document.body.classList.remove('light-theme');
@@ -421,7 +474,6 @@
       }
     }
 
-    // 6. Caricamento da localStorage
     function loadFromLocalStorage(){
       const saved = localStorage.getItem('categories');
       if(saved){
@@ -444,13 +496,11 @@
       }
     }
 
-    // 7. Rendering interfaccia
     function renderCategories(){
       sortAndSave();
       categoriesDropdown.innerHTML = '';
       categoryBoxesContainer.innerHTML = '';
 
-      // Bottone "Preferiti"
       const favBtn = document.createElement('a');
       favBtn.className = 'dropdown-item text-danger font-weight-bold';
       favBtn.href='#';
@@ -503,9 +553,11 @@
       const btnEdit     = createIconButton('info','edit',translations[currentLanguage]['edit']);
       const btnCopy     = createIconButton('warning','copy',translations[currentLanguage]['copy']);
       const btnShare    = createIconButton('primary','share-alt',translations[currentLanguage]['share']);
-      const btnFavorite = createIconButton('favorite','star',translations[currentLanguage]['favorites']);
+      /* CORREZIONE: tooltip per il pulsante preferiti */
+      const btnFavorite = createIconButton('favorite','star',translations[currentLanguage]['addToFavorites']);
       const btnDelete   = createIconButton('danger','trash',translations[currentLanguage]['delete']);
-      const btnFont     = createIconButton('secondary','text-height',translations[currentLanguage]['darkMode']);
+      /* CORREZIONE: tooltip per il pulsante increaseFont */
+      const btnFont     = createIconButton('secondary','text-height',translations[currentLanguage]['increaseFont']);
 
       btnFavorite.classList.add('btn-favorite');
       actionsDiv.append(btnEdit,btnCopy,btnShare,btnFavorite,btnDelete,btnFont);
@@ -598,8 +650,13 @@
       return b;
     }
     function toggleButtons(btn1,btn2){
-      if(btn1.style.display==='none'){ btn1.style.display='inline'; btn2.style.display='none'; }
-      else { btn1.style.display='none'; btn2.style.display='inline'; }
+      if(btn1.style.display==='none'){
+        btn1.style.display='inline';
+        btn2.style.display='none';
+      } else {
+        btn1.style.display='none';
+        btn2.style.display='inline';
+      }
     }
 
     function displaySelectedPrompt(btn, prompt, catId){
@@ -614,6 +671,10 @@
       box.actionsDiv.style.display='block';
       const favBtn = box.actionsDiv.querySelector('.btn-favorite');
       favBtn.innerHTML = prompt.favorite ? '<i class="fas fa-star"></i>' : '<i class="far fa-star"></i>';
+      // Aggiorna tooltip: se volessi anche qui
+      favBtn.title = prompt.favorite
+        ? translations[currentLanguage]['removeFromFavoritesConfirmation']
+        : translations[currentLanguage]['addToFavorites'];
     }
 
     function createPromptContent(prompt, catId){
@@ -662,7 +723,8 @@
           if(show){
             allBoxes.forEach(other=>{
               if(other!==b){
-                other.style.display='none'; other.selectedPrompt=null;
+                other.style.display='none';
+                other.selectedPrompt=null;
                 if(other.actionsDiv) other.actionsDiv.style.display='none';
               }
             });
@@ -671,7 +733,8 @@
             if(b.actionsDiv) b.actionsDiv.style.display='none';
           }
         } else {
-          b.style.display='none'; b.selectedPrompt=null;
+          b.style.display='none';
+          b.selectedPrompt=null;
           if(b.actionsDiv) b.actionsDiv.style.display='none';
         }
       });
@@ -893,7 +956,6 @@
       el.style.fontSize = (size+1)+'px';
     }
 
-    // 8. Funzionalità annulla/ripristina
     function undoAction(){
       if(historyStack.length>0){
         futureStack.push(JSON.stringify(categories));
@@ -915,9 +977,9 @@
       }
     }
 
-    // 9. Funzioni di init e event listener
     function openEditModal(catId, pId){
-      currentEdit.categoryId=catId; currentEdit.promptId=pId;
+      currentEdit.categoryId=catId; 
+      currentEdit.promptId=pId;
       const c = categories.find(cc=> cc.id===catId);
       const p = c.prompts.find(pp=> pp.id===pId);
       document.getElementById('editPromptTitle').value = p.title;
@@ -953,8 +1015,6 @@
       }
     });
 
-    // 10. Assegnazione handler
-
     languageSelect.addEventListener('change', function(){
       currentLanguage = this.value;
       translatePage();
@@ -986,7 +1046,8 @@
       const blob= new Blob([data], {type:'application/json'});
       const url= URL.createObjectURL(blob);
       const a= document.createElement('a');
-      a.href=url; a.download='backup.json';
+      a.href=url; 
+      a.download='backup.json';
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -1028,7 +1089,6 @@
     undoBtn.onclick= undoAction;
     redoBtn.onclick= redoAction;
 
-    // 11. Avvio iniziale
     let savedTheme = localStorage.getItem('theme');
     if(savedTheme) currentTheme=savedTheme;
     applyTheme();
