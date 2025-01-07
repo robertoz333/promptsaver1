@@ -33,6 +33,7 @@
       --input-text-color: #000;
       --sidebar-width: 250px;
     }
+
     .light-theme {
       --background-color: #fff;
       --text-color: #000;
@@ -44,6 +45,7 @@
       --input-background-color: #fff;
       --input-text-color: #000;
     }
+
     body {
       background-color: var(--background-color);
       color: var(--text-color);
@@ -51,6 +53,7 @@
       margin: 0;
       font-family: Arial, sans-serif;
     }
+
     .sidebar {
       position: fixed;
       top: 0;
@@ -62,38 +65,46 @@
       overflow-y: auto;
       transition: all 0.3s;
     }
+
     .sidebar h1 {
       font-size: 1.5rem;
       margin-bottom: 20px;
       text-align: center;
     }
+
     .sidebar .btn-group {
       width: 100%;
       margin-bottom: 20px;
     }
+
     .sidebar .btn {
       width: 100%;
       margin-bottom: 10px;
     }
+
     .content {
       margin-left: var(--sidebar-width);
       padding: 20px;
       transition: all 0.3s;
     }
+
     .category-box {
       background-color: var(--secondary-background-color);
       padding: 20px;
       border-radius: 5px;
       margin-top: 20px;
     }
+
     .prompt-content {
       background-color: var(--tertiary-background-color);
       padding: 20px;
       border-radius: 5px;
     }
+
     .prompt-titles-container {
       margin-bottom: 20px;
     }
+
     .btn-custom {
       color: var(--btn-custom-color);
       border: none;
@@ -106,7 +117,10 @@
       justify-content: center;
       font-size: 16px;
     }
-    .btn-custom i { font-size: 16px; }
+
+    .btn-custom i {
+      font-size: 16px;
+    }
     .btn-new       { background-color: var(--btn-new-bg-color); }
     .btn-edit      { background-color: var(--btn-edit-bg-color); }
     .btn-save      { background-color: var(--btn-save-bg-color); display: none; }
@@ -117,6 +131,7 @@
     .btn-favorite  { background-color: var(--btn-favorite-bg-color); }
     .btn-import    { background-color: var(--btn-import-bg-color); color: #fff; }
     .btn-import:hover { background-color: #002752; color: #fff; }
+
     .display-prompt-text {
       background-color: var(--quaternary-background-color);
       padding: 10px;
@@ -125,6 +140,7 @@
       margin-bottom: 15px;
       white-space: pre-wrap;
     }
+
     .ql-toolbar.ql-snow {
       background-color: var(--ql-toolbar-background-color);
       border: 1px solid var(--ql-toolbar-border-color);
@@ -138,11 +154,16 @@
     .ql-toolbar.ql-snow button svg path {
       fill: var(--text-color);
     }
-    .ql-toolbar.ql-snow .ql-stroke { stroke: var(--text-color); }
-    .ql-toolbar.ql-snow .ql-fill   { fill: var(--text-color); }
+    .ql-toolbar.ql-snow .ql-stroke {
+      stroke: var(--text-color);
+    }
+    .ql-toolbar.ql-snow .ql-fill {
+      fill: var(--text-color);
+    }
     .ql-toolbar.ql-snow .ql-picker-options {
       color: var(--text-color) !important;
     }
+
     .tag {
       background-color: var(--tag-background-color);
       color: var(--prompt-active-text-color);
@@ -158,6 +179,7 @@
       margin-left: 5px;
       cursor: pointer;
     }
+
     .tags-input {
       border: 1px solid #ccc;
       border-radius: 5px;
@@ -174,6 +196,7 @@
       flex: 1;
       min-width: 100px;
     }
+
     .columns-dropdown {
       columns: 3;
       column-gap: 20px;
@@ -184,6 +207,7 @@
       break-inside: avoid;
       white-space: nowrap;
     }
+
     @media (max-width:768px) {
       .sidebar {
         width: 100%;
@@ -197,14 +221,38 @@
         text-align: center;
       }
     }
+
     @media (max-width:576px) {
-      .btn-custom { font-size: 14px; margin-bottom: 5px; }
-      .prompt-content { padding: 15px; }
-      .display-prompt-text { font-size: 14px; }
-      .columns-dropdown { columns: 1; }
-      .tags-input { flex-direction: column; }
-      .tags-input input { width: 100%; margin-top: 5px; }
+      .btn-custom {
+        font-size: 14px;
+        margin-bottom: 5px;
+      }
+      .prompt-content {
+        padding: 15px;
+      }
+      .display-prompt-text {
+        font-size: 14px;
+      }
+      .columns-dropdown {
+        columns: 1;
+      }
+      .tags-input {
+        flex-direction: column;
+      }
+      .tags-input input {
+        width: 100%;
+        margin-top: 5px;
+      }
     }
+
+    /* LINK IN ARANCIONE QUANDO IL TEMA È SCURO */
+    body:not(.light-theme) a,
+    body:not(.light-theme) a:visited,
+    body:not(.light-theme) a:hover,
+    body:not(.light-theme) a:active {
+      color: #ff9800;
+    }
+
   </style>
 </head>
 <body>
@@ -221,7 +269,9 @@
     </div>
     
     <!-- Toggle tema -->
-    <button id="themeToggleBtn" class="btn btn-secondary mb-3" title=""><i class="fas fa-moon"></i> <span class="d-none d-sm-inline">Tema</span></button>
+    <button id="themeToggleBtn" class="btn btn-secondary mb-3" title="">
+      <i class="fas fa-moon"></i> <span class="d-none d-sm-inline">Tema</span>
+    </button>
     
     <!-- Pulsanti nella Sidebar -->
     <!-- Cerca prompt -->
@@ -580,7 +630,10 @@
           favoritesButton.className = 'dropdown-item text-danger font-weight-bold';
           favoritesButton.href = '#';
           favoritesButton.textContent = translations[currentLanguage]['favorites'];
-          favoritesButton.onclick = e => { e.preventDefault(); toggleFavoritesView(); };
+          favoritesButton.onclick = e => {
+            e.preventDefault();
+            toggleFavoritesView();
+          };
           dropdown.appendChild(favoritesButton);
     
           categories.forEach(category => {
@@ -588,7 +641,10 @@
             link.className = 'dropdown-item';
             link.href = '#';
             link.textContent = category.name;
-            link.onclick = e => { e.preventDefault(); toggleCategoryBox(category.id); };
+            link.onclick = e => {
+              e.preventDefault();
+              toggleCategoryBox(category.id);
+            };
             dropdown.appendChild(link);
     
             const box = createCategoryBox(category);
@@ -636,17 +692,27 @@
           box.actionsDiv = actionsDiv;
     
           newBtn.onclick  = () => showNewPromptForm(category.id);
-          editBtn.onclick = () => { input.readOnly=false; toggleButtons(editBtn, saveBtn); };
+          editBtn.onclick = () => {
+            input.readOnly = false;
+            toggleButtons(editBtn, saveBtn);
+          };
           saveBtn.onclick = () => {
-            input.readOnly=true; toggleButtons(editBtn, saveBtn);
+            input.readOnly = true;
+            toggleButtons(editBtn, saveBtn);
             category.name = sanitizeHTML(input.value);
-            pushToHistory(); sortAndSave(); renderCategories();
+            pushToHistory();
+            sortAndSave();
+            renderCategories();
           };
           delBtn.onclick  = () => {
             if (confirm(translations[currentLanguage]['deleteCategoryConfirmation'])) {
               pushToHistory();
-              const idx = categories.findIndex(c => c.id===category.id);
-              if(idx !== -1) { categories.splice(idx,1); sortAndSave(); renderCategories(); }
+              const idx = categories.findIndex(c => c.id === category.id);
+              if (idx !== -1) {
+                categories.splice(idx, 1);
+                sortAndSave();
+                renderCategories();
+              }
             }
           };
     
@@ -669,77 +735,77 @@
           box.appendChild(promptContainer);
           box.appendChild(selectedPrompt);
     
-          btnEdit.onclick = e => { 
-            e.stopPropagation(); 
-            if(box.selectedPrompt) openEditModal(category.id, box.selectedPrompt.id); 
-          };
-          btnCopy.onclick = e => { 
-            e.stopPropagation(); 
-            if(box.selectedPrompt) copyPromptText(box.selectedPrompt); 
-          };
-          btnShare.onclick= e => { 
-            e.stopPropagation(); 
-            if(box.selectedPrompt) sharePrompt(box.selectedPrompt); 
-          };
-          btnDelete.onclick= e=> {
+          btnEdit.onclick = e => {
             e.stopPropagation();
-            if(box.selectedPrompt && confirm(translations[currentLanguage]['deletePromptConfirmation'])){
+            if (box.selectedPrompt) openEditModal(category.id, box.selectedPrompt.id);
+          };
+          btnCopy.onclick = e => {
+            e.stopPropagation();
+            if (box.selectedPrompt) copyPromptText(box.selectedPrompt);
+          };
+          btnShare.onclick = e => {
+            e.stopPropagation();
+            if (box.selectedPrompt) sharePrompt(box.selectedPrompt);
+          };
+          btnDelete.onclick = e => {
+            e.stopPropagation();
+            if (box.selectedPrompt && confirm(translations[currentLanguage]['deletePromptConfirmation'])) {
               deletePrompt(category.id, box.selectedPrompt.id);
             }
           };
           btnFont.onclick = e => {
             e.stopPropagation();
-            if(box.selectedPrompt){
+            if (box.selectedPrompt) {
               const txtDiv = box.querySelector('.display-prompt-text');
               increaseFontSize(txtDiv);
             }
           };
           btnFavorite.onclick = e => {
             e.stopPropagation();
-            if(box.selectedPrompt) toggleFavorite(box.selectedPrompt, btnFavorite);
+            if (box.selectedPrompt) toggleFavorite(box.selectedPrompt, btnFavorite);
           };
     
           return box;
         }
     
-        function createIconButton(color, icon, title, hidden=false) {
+        function createIconButton(color, icon, title, hidden = false) {
           const b = document.createElement('button');
           b.className = `btn btn-${color} btn-custom mb-2`;
           b.innerHTML = `<i class="fas fa-${icon}"></i>`;
           b.title = title;
-          if(hidden) b.style.display='none';
+          if (hidden) b.style.display = 'none';
           return b;
         }
         function toggleButtons(btn1, btn2) {
-          if(btn1.style.display==='none'){ 
-            btn1.style.display='inline'; 
-            btn2.style.display='none'; 
-          }
-          else { 
-            btn1.style.display='none'; 
-            btn2.style.display='inline'; 
+          if (btn1.style.display === 'none') {
+            btn1.style.display = 'inline';
+            btn2.style.display = 'none';
+          } else {
+            btn1.style.display = 'none';
+            btn2.style.display = 'inline';
           }
         }
     
         function displaySelectedPrompt(btn, prompt, categoryId) {
           const box = btn.closest('.category-box');
           const selContainer = box.querySelector('.selected-prompt-container');
-          selContainer.innerHTML='';
+          selContainer.innerHTML = '';
           const pDiv = createPromptContent(prompt, categoryId);
           selContainer.appendChild(pDiv);
           box.selectedPrompt = prompt;
-          btn.parentElement.querySelectorAll('.btn').forEach(b=>b.classList.remove('active'));
+          btn.parentElement.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
-          box.actionsDiv.style.display='block';
+          box.actionsDiv.style.display = 'block';
           const favBtn = box.actionsDiv.querySelector('.btn-favorite');
           favBtn.innerHTML = prompt.favorite ? '<i class="fas fa-star"></i>' : '<i class="far fa-star"></i>';
-          favBtn.title     = prompt.favorite ? translations[currentLanguage]['removeFromFavorites']
-                                             : translations[currentLanguage]['addToFavorites'];
+          favBtn.title = prompt.favorite
+            ? translations[currentLanguage]['removeFromFavorites']
+            : translations[currentLanguage]['addToFavorites'];
         }
     
         function createPromptContent(prompt, categoryId) {
           const div = document.createElement('div');
-          div.className='prompt-content';
+          div.className = 'prompt-content';
           const h4 = document.createElement('h4');
           h4.innerHTML = prompt.title;
           div.appendChild(h4);
@@ -752,8 +818,8 @@
           tagsContainer.className = 'tags-container mb-2';
           prompt.tags.forEach(t => {
             const s = document.createElement('span');
-            s.className='tag';
-            s.textContent=t;
+            s.className = 'tag';
+            s.textContent = t;
             tagsContainer.appendChild(s);
           });
           div.appendChild(tagsContainer);
@@ -770,7 +836,7 @@
           const tempDiv = document.createElement('div');
           tempDiv.innerHTML = prompt.description;
           const txt = tempDiv.textContent || tempDiv.innerText || '';
-          navigator.clipboard.writeText(txt).then(()=>{
+          navigator.clipboard.writeText(txt).then(() => {
             alert(translations[currentLanguage]['copySuccess']);
           });
         }
@@ -784,25 +850,25 @@
           clearSearchResults();
           const allBoxes = document.querySelectorAll('.category-box');
           allBoxes.forEach(b => {
-            if(b.dataset.categoryId===id) {
-              const show = b.style.display!=='block';
-              b.style.display= show?'block':'none';
-              if(show) {
-                allBoxes.forEach(other=>{
-                  if(other!==b){
-                    other.style.display='none'; 
-                    other.selectedPrompt=null; 
-                    if(other.actionsDiv) other.actionsDiv.style.display='none'; 
+            if (b.dataset.categoryId === id) {
+              const show = b.style.display !== 'block';
+              b.style.display = show ? 'block' : 'none';
+              if (show) {
+                allBoxes.forEach(other => {
+                  if (other !== b) {
+                    other.style.display = 'none';
+                    other.selectedPrompt = null;
+                    if (other.actionsDiv) other.actionsDiv.style.display = 'none';
                   }
                 });
-              } else { 
-                b.selectedPrompt=null; 
-                if(b.actionsDiv) b.actionsDiv.style.display='none'; 
+              } else {
+                b.selectedPrompt = null;
+                if (b.actionsDiv) b.actionsDiv.style.display = 'none';
               }
-            } else { 
-              b.style.display='none'; 
-              b.selectedPrompt=null; 
-              if(b.actionsDiv) b.actionsDiv.style.display='none'; 
+            } else {
+              b.style.display = 'none';
+              b.selectedPrompt = null;
+              if (b.actionsDiv) b.actionsDiv.style.display = 'none';
             }
           });
         }
@@ -817,23 +883,27 @@
             const purpose = $('#promptPurpose').val().trim();
             const desc = quillNewPrompt.root.innerHTML.trim();
             const tags = getTags('newPromptTags');
-            if(title && purpose && desc) {
-              const c = categories.find(c=>c.id===id);
+            if (title && purpose && desc) {
+              const c = categories.find(c => c.id === id);
               c.prompts.push({
                 id: generateUniqueId(),
                 title: sanitizeHTML(title),
                 purpose: sanitizeHTML(purpose),
                 description: desc,
                 tags: tags.map(t => sanitizeHTML(t)),
-                favorite:false
+                favorite: false
               });
-              pushToHistory(); sortAndSave(); renderCategories();
+              pushToHistory();
+              sortAndSave();
+              renderCategories();
               toggleCategoryBox(id);
               const box = document.querySelector(`.category-box[data-category-id="${id}"]`);
               const pTitles = box.querySelectorAll('.prompt-titles-container .btn');
-              pTitles.forEach(btn => { if(btn.textContent===title) btn.click(); });
+              pTitles.forEach(btn => {
+                if (btn.textContent === title) btn.click();
+              });
               $('#newPromptModal').modal('hide');
-              $('#promptTitle').val(''); 
+              $('#promptTitle').val('');
               $('#promptPurpose').val('');
               quillNewPrompt.setContents([]);
               resetTags('newPromptTags');
@@ -842,209 +912,218 @@
         }
     
         function deletePrompt(catId, promptId) {
-          const c = categories.find(cc=>cc.id===catId);
-          if(!c) return;
-          const idx = c.prompts.findIndex(p=>p.id===promptId);
-          if(idx!==-1){ 
-            pushToHistory(); 
-            c.prompts.splice(idx,1); 
-            sortAndSave(); 
-            renderCategories(); 
+          const c = categories.find(cc => cc.id === catId);
+          if (!c) return;
+          const idx = c.prompts.findIndex(p => p.id === promptId);
+          if (idx !== -1) {
+            pushToHistory();
+            c.prompts.splice(idx, 1);
+            sortAndSave();
+            renderCategories();
           }
         }
     
-        function clearSearchResults(){ 
-          document.getElementById('prompts-display-container').innerHTML=''; 
+        function clearSearchResults() {
+          document.getElementById('prompts-display-container').innerHTML = '';
         }
     
         function searchPrompts() {
           const q = document.getElementById('searchInput').value.toLowerCase().trim();
           const display = document.getElementById('prompts-display-container');
-          display.innerHTML='';
+          display.innerHTML = '';
           const h2 = document.createElement('h2');
-          h2.textContent=translations[currentLanguage]['searchResults'];
+          h2.textContent = translations[currentLanguage]['searchResults'];
           display.appendChild(h2);
-          let found=false;
-          categories.forEach(c=>{
-            c.prompts.forEach(p=>{
-              const t = (p.description||'').toLowerCase();
+          let found = false;
+          categories.forEach(c => {
+            c.prompts.forEach(p => {
+              const t = (p.description || '').toLowerCase();
               const cat = c.name.toLowerCase();
-              const tg = p.tags.map(x=>x.toLowerCase());
-              if(p.title.toLowerCase().includes(q)||t.includes(q)||cat.includes(q)||tg.includes(q)){
-                found=true;
-                display.appendChild(createPromptContent(p,c.id));
+              const tg = p.tags.map(x => x.toLowerCase());
+              if (
+                p.title.toLowerCase().includes(q) ||
+                t.includes(q) ||
+                cat.includes(q) ||
+                tg.includes(q)
+              ) {
+                found = true;
+                display.appendChild(createPromptContent(p, c.id));
               }
             });
           });
-          if(!found){
-            const msg=document.createElement('p');
-            msg.textContent=translations[currentLanguage]['noResultsFound'];
+          if (!found) {
+            const msg = document.createElement('p');
+            msg.textContent = translations[currentLanguage]['noResultsFound'];
             display.appendChild(msg);
           }
-          document.querySelectorAll('.category-box').forEach(b=>b.style.display='none');
+          document.querySelectorAll('.category-box').forEach(b => (b.style.display = 'none'));
         }
     
         // Bottoni nella Sidebar
         document.getElementById('addCategoryBtn').onclick = () => {
           const name = document.getElementById('newCategoryInput').value.trim();
-          if(name){
+          if (name) {
             pushToHistory();
-            categories.push({ 
-              id:generateUniqueId(), 
-              name:sanitizeHTML(name), 
-              prompts:[] 
+            categories.push({
+              id: generateUniqueId(),
+              name: sanitizeHTML(name),
+              prompts: []
             });
-            sortAndSave(); 
+            sortAndSave();
             renderCategories();
-            toggleCategoryBox(categories[categories.length-1].id);
-            document.getElementById('newCategoryInput').value='';
+            toggleCategoryBox(categories[categories.length - 1].id);
+            document.getElementById('newCategoryInput').value = '';
           }
         };
     
-        document.getElementById('searchBtn').onclick=searchPrompts;
-        document.getElementById('searchInput').addEventListener('keydown', e=>{
-          if(e.key==='Enter') searchPrompts();
+        document.getElementById('searchBtn').onclick = searchPrompts;
+        document.getElementById('searchInput').addEventListener('keydown', e => {
+          if (e.key === 'Enter') searchPrompts();
         });
     
-        document.getElementById('backupBtn').onclick=()=>{
+        document.getElementById('backupBtn').onclick = () => {
           const data = JSON.stringify(categories);
-          const blob = new Blob([data],{type:'application/json'});
+          const blob = new Blob([data], { type: 'application/json' });
           const url = URL.createObjectURL(blob);
           const a = document.createElement('a');
-          a.href=url; 
-          a.download='backup.json';
+          a.href = url;
+          a.download = 'backup.json';
           document.body.appendChild(a);
           a.click();
           document.body.removeChild(a);
           URL.revokeObjectURL(url);
         };
     
-        document.getElementById('importBtn').onclick=()=>{
+        document.getElementById('importBtn').onclick = () => {
           document.getElementById('importFile').click();
         };
     
-        document.getElementById('importFile').addEventListener('change', e=>{
+        document.getElementById('importFile').addEventListener('change', e => {
           const file = e.target.files[0];
-          if(file){
+          if (file) {
             const reader = new FileReader();
-            reader.onload = evt=>{
+            reader.onload = evt => {
               try {
                 const data = JSON.parse(evt.target.result);
-                data.forEach(cat=>{
-                  cat.id = cat.id||generateUniqueId();
-                  cat.prompts.forEach(p=>{ p.id=p.id||generateUniqueId(); });
+                data.forEach(cat => {
+                  cat.id = cat.id || generateUniqueId();
+                  cat.prompts.forEach(p => {
+                    p.id = p.id || generateUniqueId();
+                  });
                 });
-                categories.length=0; 
+                categories.length = 0;
                 categories.push(...data);
-                pushToHistory(); 
-                sortAndSave(); 
+                pushToHistory();
+                sortAndSave();
                 renderCategories();
                 alert(translations[currentLanguage]['backupImported']);
-              } catch(err){ 
-                alert(translations[currentLanguage]['backupImportError']+err.message); 
+              } catch (err) {
+                alert(translations[currentLanguage]['backupImportError'] + err.message);
               }
             };
             reader.readAsText(file);
           }
         });
     
-        document.getElementById('clearAllBtn').onclick=()=>{
-          if(confirm("Sei sicuro di voler cancellare tutte le categorie e i prompt?")){
+        document.getElementById('clearAllBtn').onclick = () => {
+          if (confirm("Sei sicuro di voler cancellare tutte le categorie e i prompt?")) {
             pushToHistory();
-            categories.length=0;
+            categories.length = 0;
             sortAndSave();
             renderCategories();
           }
         };
     
-        function openEditModal(catId, pId){
-          currentEdit.categoryId=catId; 
-          currentEdit.promptId=pId;
-          const c=categories.find(cc=>cc.id===catId);
-          const p=c.prompts.find(pp=>pp.id===pId);
+        function openEditModal(catId, pId) {
+          currentEdit.categoryId = catId;
+          currentEdit.promptId = pId;
+          const c = categories.find(cc => cc.id === catId);
+          const p = c.prompts.find(pp => pp.id === pId);
           $('#editPromptTitle').val(p.title);
-          $('#editPromptPurpose').val(p.purpose||'');
-          quillEditPrompt.root.innerHTML=p.description;
+          $('#editPromptPurpose').val(p.purpose || '');
+          quillEditPrompt.root.innerHTML = p.description;
           initTagsInput('editPromptTags', p.tags);
           $('#editPromptModal').modal('show');
         }
     
-        $('#editPromptForm').on('submit', e=>{
+        $('#editPromptForm').on('submit', e => {
           e.preventDefault();
-          const title=$('#editPromptTitle').val().trim();
-          const purpose=$('#editPromptPurpose').val().trim();
-          const desc=quillEditPrompt.root.innerHTML.trim();
-          const tags=getTags('editPromptTags');
-          if(title && purpose && desc){
-            const c=categories.find(cc=>cc.id===currentEdit.categoryId);
-            const p=c.prompts.find(pp=>pp.id===currentEdit.promptId);
+          const title = $('#editPromptTitle').val().trim();
+          const purpose = $('#editPromptPurpose').val().trim();
+          const desc = quillEditPrompt.root.innerHTML.trim();
+          const tags = getTags('editPromptTags');
+          if (title && purpose && desc) {
+            const c = categories.find(cc => cc.id === currentEdit.categoryId);
+            const p = c.prompts.find(pp => pp.id === currentEdit.promptId);
             pushToHistory();
-            p.title=sanitizeHTML(title);
-            p.purpose=sanitizeHTML(purpose);
-            p.description=desc;
-            p.tags=tags.map(t=>sanitizeHTML(t));
-            sortAndSave(); 
+            p.title = sanitizeHTML(title);
+            p.purpose = sanitizeHTML(purpose);
+            p.description = desc;
+            p.tags = tags.map(t => sanitizeHTML(t));
+            sortAndSave();
             renderCategories();
             toggleCategoryBox(c.id);
-            const box=document.querySelector(`.category-box[data-category-id="${c.id}"]`);
-            const allBtns=box.querySelectorAll('.prompt-titles-container .btn');
-            allBtns.forEach(b=>{ if(b.textContent===p.title) b.click(); });
+            const box = document.querySelector(`.category-box[data-category-id="${c.id}"]`);
+            const allBtns = box.querySelectorAll('.prompt-titles-container .btn');
+            allBtns.forEach(b => {
+              if (b.textContent === p.title) b.click();
+            });
             $('#editPromptModal').modal('hide');
           } else alert(translations[currentLanguage]['promptTitlePurposeRequired']);
         });
     
-        function initTagsInput(id, initial=[]) {
+        function initTagsInput(id, initial = []) {
           const container = document.getElementById(id);
-          container.innerHTML='';
+          container.innerHTML = '';
           const input = document.createElement('input');
-          input.type='text';
-          input.placeholder=translations[currentLanguage]['addTag']||'Aggiungi tag...';
+          input.type = 'text';
+          input.placeholder = translations[currentLanguage]['addTag'] || 'Aggiungi tag...';
           container.appendChild(input);
-          const tags=[...initial];
+          const tags = [...initial];
           function addTag(t) {
-            if(t && !tags.includes(t)){
+            if (t && !tags.includes(t)) {
               tags.push(t);
-              const sp=document.createElement('span');
-              sp.className='tag'; 
-              sp.textContent=t;
-              const rm=document.createElement('i');
-              rm.className='fas fa-times'; 
-              rm.onclick=()=>{
-                tags.splice(tags.indexOf(t),1); 
+              const sp = document.createElement('span');
+              sp.className = 'tag';
+              sp.textContent = t;
+              const rm = document.createElement('i');
+              rm.className = 'fas fa-times';
+              rm.onclick = () => {
+                tags.splice(tags.indexOf(t), 1);
                 container.removeChild(sp);
               };
               sp.appendChild(rm);
               container.insertBefore(sp, input);
-              input.value='';
+              input.value = '';
             }
           }
-          input.addEventListener('keydown', e=>{
-            if(e.key==='Enter'||e.key===','){
-              e.preventDefault(); 
-              addTag(input.value.trim()); 
+          input.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ',') {
+              e.preventDefault();
+              addTag(input.value.trim());
             }
           });
           initial.forEach(addTag);
         }
         function getTags(id) {
-          return Array.from(document.getElementById(id).querySelectorAll('.tag')).map(t=>t.childNodes[0].nodeValue.trim());
+          return Array.from(document.getElementById(id).querySelectorAll('.tag')).map(t => t.childNodes[0].nodeValue.trim());
         }
-        function resetTags(id){ 
-          document.getElementById(id).innerHTML=''; 
+        function resetTags(id) {
+          document.getElementById(id).innerHTML = '';
         }
     
         function sharePrompt(prompt) {
-          if(navigator.share){
-            navigator.share({ 
-              title: prompt.title, 
-              text: prompt.description 
+          if (navigator.share) {
+            navigator.share({
+              title: prompt.title,
+              text: prompt.description
             })
-            .catch(err=>console.error(translations[currentLanguage]['shareError'], err));
+            .catch(err => console.error(translations[currentLanguage]['shareError'], err));
           } else {
-            const temp=document.createElement('div');
-            temp.innerHTML=prompt.description;
+            const temp = document.createElement('div');
+            temp.innerHTML = prompt.description;
             const plain = temp.textContent || temp.innerText || '';
-            navigator.clipboard.writeText(`${prompt.title}\n\n${plain}`).then(()=>{
+            navigator.clipboard.writeText(`${prompt.title}\n\n${plain}`).then(() => {
               alert(translations[currentLanguage]['promptCopied']);
             });
           }
@@ -1052,124 +1131,126 @@
     
         function toggleFavorite(prompt, btn) {
           pushToHistory();
-          prompt.favorite=!prompt.favorite;
+          prompt.favorite = !prompt.favorite;
           saveToLocalStorage();
-          btn.innerHTML= prompt.favorite?'<i class="fas fa-star"></i>':'<i class="far fa-star"></i>';
-          btn.title= prompt.favorite?translations[currentLanguage]['removeFromFavorites']:translations[currentLanguage]['addToFavorites'];
+          btn.innerHTML = prompt.favorite ? '<i class="fas fa-star"></i>' : '<i class="far fa-star"></i>';
+          btn.title = prompt.favorite
+            ? translations[currentLanguage]['removeFromFavorites']
+            : translations[currentLanguage]['addToFavorites'];
         }
     
-        function toggleFavoritesView(){
+        function toggleFavoritesView() {
           clearSearchResults();
-          document.querySelectorAll('.category-box').forEach(b=>b.style.display='none');
+          document.querySelectorAll('.category-box').forEach(b => b.style.display = 'none');
           renderFavorites();
         }
     
-        function renderFavorites(){
+        function renderFavorites() {
           const display = document.getElementById('prompts-display-container');
-          display.innerHTML='';
-          const h2=document.createElement('h2');
-          h2.textContent=translations[currentLanguage]['favoritesHeading'];
+          display.innerHTML = '';
+          const h2 = document.createElement('h2');
+          h2.textContent = translations[currentLanguage]['favoritesHeading'];
           display.appendChild(h2);
     
-          const favs=[]; 
-          let found=false;
-          categories.forEach(c=>{ 
-            c.prompts.forEach(p=>{ 
-              if(p.favorite) favs.push({p, catId:c.id}); 
-            }); 
+          const favs = [];
+          let found = false;
+          categories.forEach(c => {
+            c.prompts.forEach(p => {
+              if (p.favorite) favs.push({ p, catId: c.id });
+            });
           });
-          favs.sort((a,b)=>a.p.title.localeCompare(b.p.title, currentLanguage));
-          if(favs.length>0) found=true;
+          favs.sort((a, b) => a.p.title.localeCompare(b.p.title, currentLanguage));
+          if (favs.length > 0) found = true;
     
-          const favTitles=document.createElement('div');
-          favTitles.className='favorite-titles-container d-flex flex-wrap';
-          const favSelected=document.createElement('div');
-          favSelected.className='selected-favorite-container';
+          const favTitles = document.createElement('div');
+          favTitles.className = 'favorite-titles-container d-flex flex-wrap';
+          const favSelected = document.createElement('div');
+          favSelected.className = 'selected-favorite-container';
     
-          favs.forEach(item=>{
-            const btn=document.createElement('button');
-            btn.className='btn btn-secondary mr-2 mb-2';
-            btn.textContent=item.p.title;
-            btn.onclick=()=> displayFavoritePrompt(item.p, item.catId, favSelected);
+          favs.forEach(item => {
+            const btn = document.createElement('button');
+            btn.className = 'btn btn-secondary mr-2 mb-2';
+            btn.textContent = item.p.title;
+            btn.onclick = () => displayFavoritePrompt(item.p, item.catId, favSelected);
             favTitles.appendChild(btn);
           });
-          if(found){
+          if (found) {
             display.appendChild(favTitles);
             display.appendChild(favSelected);
           } else {
-            const msg=document.createElement('p');
-            msg.textContent=translations[currentLanguage]['noFavoritesFound'];
+            const msg = document.createElement('p');
+            msg.textContent = translations[currentLanguage]['noFavoritesFound'];
             display.appendChild(msg);
           }
         }
     
-        function displayFavoritePrompt(prompt, catId, container){
-          container.innerHTML='';
+        function displayFavoritePrompt(prompt, catId, container) {
+          container.innerHTML = '';
           container.appendChild(createPromptContent(prompt, catId));
-          const actions=document.createElement('div');
-          actions.className='favorite-actions mt-3';
-          const eBtn=createIconButton('info','edit',translations[currentLanguage]['edit']);
-          const cBtn=createIconButton('warning','copy',translations[currentLanguage]['copy']);
-          const sBtn=createIconButton('primary','share-alt',translations[currentLanguage]['share']);
-          const fBtn=createIconButton('secondary','text-height',translations[currentLanguage]['increaseFont']);
-          const rmBtn=createIconButton('danger','trash',translations[currentLanguage]['removeFromFavorites']);
+          const actions = document.createElement('div');
+          actions.className = 'favorite-actions mt-3';
+          const eBtn = createIconButton('info', 'edit', translations[currentLanguage]['edit']);
+          const cBtn = createIconButton('warning', 'copy', translations[currentLanguage]['copy']);
+          const sBtn = createIconButton('primary', 'share-alt', translations[currentLanguage]['share']);
+          const fBtn = createIconButton('secondary', 'text-height', translations[currentLanguage]['increaseFont']);
+          const rmBtn = createIconButton('danger', 'trash', translations[currentLanguage]['removeFromFavorites']);
           actions.append(eBtn, cBtn, sBtn, fBtn, rmBtn);
           container.appendChild(actions);
     
-          eBtn.onclick=e=>{
-            e.stopPropagation(); 
-            openEditModal(catId,prompt.id);
+          eBtn.onclick = e => {
+            e.stopPropagation();
+            openEditModal(catId, prompt.id);
           };
-          cBtn.onclick=e=>{
-            e.stopPropagation(); 
+          cBtn.onclick = e => {
+            e.stopPropagation();
             copyPromptText(prompt);
           };
-          sBtn.onclick=e=>{
-            e.stopPropagation(); 
+          sBtn.onclick = e => {
+            e.stopPropagation();
             sharePrompt(prompt);
           };
-          fBtn.onclick=e=>{
-            e.stopPropagation(); 
-            const d=container.querySelector('.display-prompt-text'); 
+          fBtn.onclick = e => {
+            e.stopPropagation();
+            const d = container.querySelector('.display-prompt-text');
             increaseFontSize(d);
           };
-          rmBtn.onclick=e=>{
+          rmBtn.onclick = e => {
             e.stopPropagation();
-            if(confirm(translations[currentLanguage]['removeFromFavoritesConfirmation'])){
-              pushToHistory(); 
-              prompt.favorite=false; 
-              sortAndSave(); 
+            if (confirm(translations[currentLanguage]['removeFromFavoritesConfirmation'])) {
+              pushToHistory();
+              prompt.favorite = false;
+              sortAndSave();
               renderFavorites();
             }
           };
         }
     
-        function pushToHistory(){
+        function pushToHistory() {
           historyStack.push(JSON.stringify(categories));
-          futureStack=[];
+          futureStack = [];
         }
-        function undoAction(){
-          if(historyStack.length>0){
+        function undoAction() {
+          if (historyStack.length > 0) {
             futureStack.push(JSON.stringify(categories));
-            const prev=historyStack.pop();
-            categories.length=0; 
+            const prev = historyStack.pop();
+            categories.length = 0;
             categories.push(...JSON.parse(prev));
-            saveToLocalStorage(); 
+            saveToLocalStorage();
             renderCategories();
           }
         }
-        function redoAction(){
-          if(futureStack.length>0){
+        function redoAction() {
+          if (futureStack.length > 0) {
             historyStack.push(JSON.stringify(categories));
-            const next=futureStack.pop();
-            categories.length=0; 
+            const next = futureStack.pop();
+            categories.length = 0;
             categories.push(...JSON.parse(next));
-            saveToLocalStorage(); 
+            saveToLocalStorage();
             renderCategories();
           }
         }
-        document.getElementById('undoBtn').onclick=undoAction;
-        document.getElementById('redoBtn').onclick=redoAction;
+        document.getElementById('undoBtn').onclick = undoAction;
+        document.getElementById('redoBtn').onclick = redoAction;
     
         // Carica le categorie salvate e inizializza
         loadFromLocalStorage();
