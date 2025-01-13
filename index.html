@@ -181,12 +181,25 @@
     }
     /* Link categorie in nero anche in dark mode */
     body:not(.light-theme) .columns-dropdown a.dropdown-item { color: #000 !important; }
+
+    /* ---- LARGHEZZA UNIFORME DEI BOTTONI IN SIDEBAR ---- */
+    .sidebar .btn,
+    .sidebar .input-group {
+      width: 100% !important;
+      margin-bottom: 10px;
+    }
+    .sidebar .input-group .form-control {
+      width: 100% !important;
+    }
+    /* Se vuoi allineare i testi dei bottoni a sinistra:
+       .sidebar .btn { text-align: left; } 
+    */
   </style>
 </head>
 <body>
   <div class="sidebar">
     <h1 data-translate="promptSaver">Prompt Saver</h1>
-    <div class="btn-group mb-3">
+    <div class="btn-group mb-3" style="width: 100%;">
       <select id="languageSelect" class="custom-select">
         <option value="it">Italiano</option>
         <option value="en">English</option>
@@ -540,7 +553,7 @@
       const editBtn = createIconButton('info','edit',translations[currentLanguage]['editPrompt']);
       const saveBtn = createIconButton('success','save',translations[currentLanguage]['save'],true);
       const newBtn  = createIconButton('success','plus',translations[currentLanguage]['newPrompt']);
-      const delBtn  = createIconButton('danger','trash',translations[currentLanguage]['delete']);
+      const delBtn  = createIconButton('danger','trash','Delete Category');
 
       newBtn.classList.add('btn-new');
       [editBtn, saveBtn, newBtn, delBtn].forEach(b=> header.appendChild(b));
@@ -553,10 +566,8 @@
       const btnEdit     = createIconButton('info','edit',translations[currentLanguage]['edit']);
       const btnCopy     = createIconButton('warning','copy',translations[currentLanguage]['copy']);
       const btnShare    = createIconButton('primary','share-alt',translations[currentLanguage]['share']);
-      /* CORREZIONE: tooltip per il pulsante preferiti */
       const btnFavorite = createIconButton('favorite','star',translations[currentLanguage]['addToFavorites']);
-      const btnDelete   = createIconButton('danger','trash',translations[currentLanguage]['delete']);
-      /* CORREZIONE: tooltip per il pulsante increaseFont */
+      const btnDelete   = createIconButton('danger','trash',translations[currentLanguage]['deletePromptConfirmation']);
       const btnFont     = createIconButton('secondary','text-height',translations[currentLanguage]['increaseFont']);
 
       btnFavorite.classList.add('btn-favorite');
@@ -671,7 +682,6 @@
       box.actionsDiv.style.display='block';
       const favBtn = box.actionsDiv.querySelector('.btn-favorite');
       favBtn.innerHTML = prompt.favorite ? '<i class="fas fa-star"></i>' : '<i class="far fa-star"></i>';
-      // Aggiorna tooltip: se volessi anche qui
       favBtn.title = prompt.favorite
         ? translations[currentLanguage]['removeFromFavoritesConfirmation']
         : translations[currentLanguage]['addToFavorites'];
