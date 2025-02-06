@@ -1,0 +1,325 @@
+/* 
+  Foglio di stile principale per la pagina.
+  Contiene tutte le regole CSS, comprese le modifiche per:
+   - Pulsante "Importa Backup" blu
+   - Testo "Prompt Saver" in bianco con font-size ridotto
+   - Sfondo nero del box in dark mode, bianco in light mode
+   - Colori dei testi dei prompt in base al tema
+*/
+
+/* Variabili di default (dark mode) */
+:root {
+  --background-color: #000;
+  --text-color: #fff;
+  --secondary-background-color: #333;
+  --tertiary-background-color: #444;
+  --quaternary-background-color: #555;
+  --prompt-active-color: #28a745;
+  --prompt-active-text-color: #fff;
+  --btn-custom-color: #fff;
+  --btn-new-bg-color: #28a745;
+  --btn-edit-bg-color: #17a2b8;
+  --btn-save-bg-color: #28a745;
+  --btn-delete-bg-color: #dc3545;
+  --btn-copy-bg-color: #ffc107;
+  --btn-font-bg-color: #ff9800;
+  --btn-share-bg-color: #007bff;
+  --btn-favorite-bg-color: #FFD700;
+  /* Colore blu di Importa Backup */
+  --btn-import-bg-color: #007bff;
+  --btn-import-hover-bg-color: #0056b3;
+
+  --tag-background-color: #28a745;
+  --ql-toolbar-background-color: #555;
+  --ql-toolbar-border-color: #444;
+  --input-background-color: #fff;
+  --input-text-color: #000;
+  --sidebar-width: 250px;
+}
+
+/* Tema chiaro */
+.light-theme {
+  --background-color: #fff;
+  --text-color: #000;
+  --secondary-background-color: #f0f0f0;
+  --tertiary-background-color: #e0e0e0;
+  --quaternary-background-color: #d0d0d0;
+  --ql-toolbar-background-color: #e0e0e0;
+  --ql-toolbar-border-color: #ccc;
+  --input-background-color: #fff;
+  --input-text-color: #000;
+}
+
+/* Stile base */
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Sidebar e titolo "Prompt Saver" */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--sidebar-width);
+  height: 100%;
+  background-color: var(--secondary-background-color);
+  padding: 20px;
+  overflow-y: auto;
+  transition: all 0.3s;
+}
+
+.sidebar h1 {
+  color: #fff;     /* Testo bianco */
+  font-size: 24px; /* Font-size ridotto */
+}
+
+/* Contenuto principale */
+.content {
+  background-color: #000; /* Dark mode nero di default */
+  margin-left: var(--sidebar-width);
+  padding: 20px;
+  transition: all 0.3s;
+}
+
+.light-theme .content {
+  background-color: #fff; /* Modalità chiara */
+}
+
+/* Esempio di box per una categoria di contenuti */
+.category-box {
+  background-color: var(--secondary-background-color);
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+/* Sezione dei prompt */
+.prompt-content {
+  background-color: var(--tertiary-background-color);
+  padding: 20px;
+  border-radius: 5px;
+  color: var(--text-color);
+  margin-top: 20px;
+}
+
+/* Bottoni base */
+.btn-custom {
+  color: var(--btn-custom-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-new {
+  background-color: var(--btn-new-bg-color);
+}
+
+.btn-edit {
+  background-color: var(--btn-edit-bg-color);
+}
+
+.btn-save {
+  background-color: var(--btn-save-bg-color);
+  display: none; /* Esempio di default hidden */
+}
+
+.btn-delete {
+  background-color: var(--btn-delete-bg-color);
+}
+
+.btn-copy {
+  background-color: var(--btn-copy-bg-color);
+}
+
+.btn-font {
+  background-color: var(--btn-font-bg-color);
+}
+
+.btn-share {
+  background-color: var(--btn-share-bg-color);
+}
+
+.btn-favorite {
+  background-color: var(--btn-favorite-bg-color);
+}
+
+/* Pulsante "Importa Backup" - Blu */
+.btn-import {
+  background-color: var(--btn-import-bg-color);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+/* Se il pulsante .btn-import è nella sidebar e vogliamo forzare la regola */
+.sidebar .btn.btn-import {
+  background-color: var(--btn-import-bg-color) !important;
+  color: #fff !important;
+}
+
+/* Hover */
+.btn-import:hover {
+  background-color: var(--btn-import-hover-bg-color);
+}
+
+/* Per maggiore specificità, se necessario */
+.sidebar .btn.btn-import:hover {
+  background-color: var(--btn-import-hover-bg-color) !important;
+}
+
+/* Gestione testi (prompt) */
+.display-prompt-text {
+  background-color: var(--quaternary-background-color);
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  white-space: pre-wrap;
+  border: 1px solid var(--tertiary-background-color);
+  color: var(--text-color);
+}
+
+/* Toolbar Quill (se utilizzata) */
+.ql-toolbar.ql-snow {
+  background-color: var(--ql-toolbar-background-color);
+  border: 1px solid var(--ql-toolbar-border-color);
+}
+
+.ql-toolbar.ql-snow .ql-picker-item,
+.ql-toolbar.ql-snow .ql-picker-label,
+.ql-toolbar.ql-snow button {
+  color: var(--text-color);
+}
+
+.ql-toolbar.ql-snow .ql-stroke {
+  stroke: var(--text-color);
+}
+
+.ql-toolbar.ql-snow .ql-fill {
+  fill: var(--text-color);
+}
+
+.ql-toolbar.ql-snow .ql-picker-options {
+  color: var(--text-color) !important;
+}
+
+/* Tag */
+.tag {
+  background-color: var(--tag-background-color);
+  color: var(--prompt-active-text-color);
+  padding: 5px 10px;
+  border-radius: 15px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.tag i {
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+/* Gestione input tags */
+.tags-input {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: var(--input-background-color);
+  color: var(--input-text-color);
+}
+
+.tags-input input {
+  border: none;
+  outline: 0;
+  flex: 1;
+  min-width: 100px;
+}
+
+/* Dropdown con più colonne */
+.columns-dropdown {
+  columns: 3;
+  column-gap: 20px;
+  width: 100%;
+}
+
+.columns-dropdown a.dropdown-item {
+  display: block;
+  break-inside: avoid;
+  white-space: nowrap;
+}
+
+/* Responsività */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .content {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .btn-custom {
+    font-size: 14px;
+  }
+  .prompt-content {
+    padding: 15px;
+  }
+  .display-prompt-text {
+    font-size: 14px;
+  }
+  .columns-dropdown {
+    columns: 1;
+  }
+  .tags-input {
+    flex-direction: column;
+  }
+  .tags-input input {
+    width: 100%;
+    margin-top: 5px;
+  }
+}
+
+/* Link in dark mode */
+body:not(.light-theme) .prompt-content a,
+body:not(.light-theme) .prompt-content a:active,
+body:not(.light-theme) .prompt-content a:hover,
+body:not(.light-theme) .prompt-content a:visited {
+  color: #ff9800 !important;
+}
+
+body:not(.light-theme) .columns-dropdown a.dropdown-item {
+  color: #000 !important;
+}
+
+/* Gestione layout sidebar in schermi piccoli */
+.sidebar .btn,
+.sidebar .input-group {
+  width: 100% !important;
+  margin-bottom: 10px;
+}
+
+.sidebar .input-group .form-control {
+  width: 100% !important;
+}
+
+/* Tutto il testo dei prompt rispetta il tema */
+.prompt-content * {
+  color: var(--text-color);
+}
